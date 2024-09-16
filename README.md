@@ -5,3 +5,7 @@ These menu/gsc stuffs works without CoDaM ;)
 
 ___
 # Credits
+- Sadman
+- Cato
+- TheWikiFesh
+- thecheeseman
