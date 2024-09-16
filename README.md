@@ -9,3 +9,4 @@ ___
 - Cato
 - TheWikiFesh
 - thecheeseman
+- id Software
