@@ -1,0 +1,151 @@
+#include "ui/menudef.h"
+
+{
+\\ CINEMATIC \\
+  menuDef {
+    	name "cinematicMenu"
+    	visible 0
+    	fullscreen 1
+	background "ui_mpmenubgsky"
+    	rect 0 0 640 480
+    	focusColor 1 .67 0 1
+    	style 1
+    	border 1
+	onEsc { close cinematicMenu ; open main }
+	onOpen { setitemcolor fadebox backcolor 0 0 0 1 ; 
+	fadeout fadebox ; 
+	transition mappreview 0 0 640 480 54 144 256 192 20 10 ; 
+	uiScript loadMovies ;
+	show accept ;
+	show back ;
+	hide grpmessage }
+
+
+
+
+
+		 
+
+
+  	itemDef {
+      	name levelbar
+	text "CINEMATICS"
+	textstyle 6
+      	style 2
+      	rect 0 16 640 40 
+      	textscale 0.416
+      	textalign 1		        // center
+      	textalignx 320        // x alignment point for text
+                            // use it to offset left/right text from the edge 
+                            // or to center the text on a different point
+      	textaligny 27        
+      	style 2
+      	border 4
+      	bordercolor 0.5 0.5 0.5 0.5
+      	bordersize 2
+      	backcolor 0 0 .75 0.5
+      	visible 1 
+      	decoration 
+    	}
+
+itemDef {
+	name cinematiclist
+      	rect 330 144 256 192
+	type ITEM_TYPE_LISTBOX
+	style WINDOW_STYLE_FILLED
+	elementwidth 120
+	elementheight 20
+	textscale .25
+	elementtype LISTBOX_TEXT
+	feeder FEEDER_CINEMATICS
+	doubleclick { uiScript playMovie }
+	textalign 3
+	textaligny 14
+	border 1
+	bordercolor .5 .5 .5 .5
+	forecolor 1 1 1 1
+	backcolor 0 0 .1 1
+	outlinecolor .1 .1 .7 .5
+	visible 1
+	mouseEnter { fadein message_cinematic ; setitemcolor cinematiclist bordercolor .7 0 0 1 } 
+	mouseExit { fadeout message_cinematic ; setitemcolor cinematiclist bordercolor .5 .5 .5 .5 } 
+  	}
+
+
+
+// BACK BAR	//
+
+
+
+    itemDef {
+      	name back
+	style 3
+	text "Back"
+	rect 16 424 50 50 
+			textalign 0
+			textscale .4		
+			textalignx 0
+			textaligny 14
+			textfont UI_FONT_NORMAL
+			type ITEM_TYPE_BUTTON
+			style WINDOW_STYLE_EMPTY
+			textstyle ITEM_TEXTSTYLE_SHADOWED
+      	visible 1 
+      	action { close cinematicMenu ; open main }
+	mouseEnter { show back ; fadein message_back }
+    	}
+
+itemDef {
+      	name accept
+      	style UI_BUTTON_STYLE
+     	rect 574 424 50 50 
+     	text "Play"
+      	backcolor 0 0 0 0
+      	forecolor 1 1 1 1
+			textalign 0
+			textscale .4		
+			textalignx 0
+			textaligny 14
+			textfont UI_FONT_NORMAL
+			type ITEM_TYPE_BUTTON
+			style WINDOW_STYLE_EMPTY
+			textstyle ITEM_TEXTSTYLE_SHADOWED
+      	visible 1 
+	mouseEnter { playlooped "sound/misc/loop_electricity_05.wav" ; show lightning ; show accept ; fadein message_accept }
+      	action { close cinematicMenu ; uiScript playMovie }
+  	}
+
+itemDef {
+	name mappreview
+	ownerdraw UI_PREVIEWCINEMATIC
+	rect 54 144 256 192
+	backcolor 1 1 1 .25
+	border 1
+	bordersize 1
+	bordercolor .5 .5 .5 1
+	decoration
+	visible 1
+	}
+
+
+
+
+
+}
+
+
+
+
+		}
+
+		#include "ui_mp/menu_background.menu"
+
+
+		}
+
+
+
+}
+
+}
+}

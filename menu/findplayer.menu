@@ -1,0 +1,245 @@
+#include "ui_mp/menudef.h"
+
+#define GLOBAL_TEXTSCALE1	0.25
+
+{
+	\\ Server Information Popup Menu
+
+	menuDef {
+		name		"findplayer_popmenu"
+	   	visible		0
+   		fullscreen	0
+		rect		120 70 600 600
+		focusColor	UI_FOCUS_COLOR
+   		style		1
+   		border		1
+		popup
+		onESC 		{ close findplayer_popmenu }
+
+		itemDef
+		{
+			name		window
+			rect		0 40 400 320
+			style		WINDOW_STYLE_FILLED
+			backcolor	.1 .1 .1 1
+			visible		1
+			decoration
+		}
+
+		itemDef
+		{
+			name		window
+			rect		2 42 396 20
+			style		WINDOW_STYLE_FILLED
+			backcolor	.3 0.5 0.2 0.5
+			visible		1
+			decoration
+		}
+
+		itemDef 
+		{
+			name		window
+			text		"Search Player"
+			style		WINDOW_STYLE_FILLED
+			textfont	UI_FONT_NORMAL
+			textscale	.3
+			rect		80 70 250 20
+			textalign	0
+			textalignx	80
+			textaligny	-12
+			forecolor	1 1 1 1
+			backcolor	0 0 0 .25
+			visible		1
+			decoration
+		}
+
+		itemDef
+		{
+			name		window
+			style		WINDOW_STYLE_EMPTY
+			text		"^5»"
+			textfont	UI_FONT_NORMAL
+			textscale	.3
+			rect		15 85 215 32
+			textalign	0
+			textalignx  	20
+			textaligny	2
+			forecolor	1 1 1 1
+			backcolor	0 0 0 .25
+			visible		1
+		}
+
+		itemDef 
+		{
+      			name		namefield
+      			type		4
+			style		WINDOW_STYLE_FILLED
+			cvar		"ui_findplayer"
+			text		" "
+			maxChars	20
+			maxpaintchars	30
+      			rect		60 70 195 20 
+      			textalign	0		
+      			textalignx	20
+      			textaligny	17
+			textfont	UI_FONT_NORMAL
+			textscale	.25
+			forecolor	OPTIONS_CONTROL_FORECOLOR
+      			visible		1 
+
+			action 
+			{ 
+				play "mouse_click" ; 
+				ui_script FindPlayer
+			}
+    	}
+
+		// LIST OF SERVER NAMES
+
+		itemDef 
+		{
+			name			servername_feeder
+			rect			30 95 340 85
+			type			ITEM_TYPE_LISTBOX
+			style			WINDOW_STYLE_FILLED
+			elementwidth		120
+			elementheight		15
+			textfont		UI_FONT_NORMAL
+			textscale		.3
+			textaligny		0
+			elementtype		LISTBOX_TEXT
+			feeder			FEEDER_FINDPLAYER
+			border			1
+			forecolor		1 1 1 1
+			backcolor		0 0 0 .25
+			bordercolor		0 0 0 1
+			outlinecolor		OPTIONS_CONTROL_BACKCOLOR
+			visible			1
+			columns			1	2 40 30
+	 	
+			doubleClick
+			{
+				ui_script FoundPlayerJoinServer 
+			}
+		}
+
+		// LIST OF SERVER STATUS INFORMATION
+
+		itemDef 
+		{
+			name			serverInfoList		
+			rect			30 187 340 130
+			type			ITEM_TYPE_LISTBOX
+			style			WINDOW_STYLE_FILLED
+			elementwidth		120
+			elementheight		15
+			forecolor		1 1 1 1
+			backcolor		0 0 0 .25
+			border			1
+			bordersize		1
+			bordercolor		0 0 0 1
+			textaligny		0
+			textfont		UI_FONT_NORMAL
+			textscale		.3
+			elementtype		LISTBOX_TEXT
+			feeder			FEEDER_SERVERSTATUS
+			visible			1
+			columns 4	2 40 20
+					40 40 10
+					90 40 10
+					135 40 24
+
+			notselectable
+	 	}
+
+		//	BUTTON
+
+		itemDef 
+		{
+			name		exit_button
+			text		"@MENU_SR_FP_EXIT"
+			type		ITEM_TYPE_BUTTON
+			style		WINDOW_STYLE_FILLED
+			rect		30 325 60 26
+			textalign	0
+			textalignx	15
+			textaligny	20
+			textfont	UI_FONT_NORMAL
+			textscale	.3
+			forecolor	1 1 1 1
+			backcolor	UI_BUTTON_BACK_COLOR
+			border		1
+			bordercolor	0 0 0 1
+			visible 1
+			
+			action 
+			{
+				play "mouse_click" ; 
+
+				close findplayer_popmenu ; 
+			}
+		mouseEnter		{ setitemcolor yes backcolor UI_BUTTON_BACK_COLOR_HOVER;play "mouse_over"; }
+		mouseExit		{ setitemcolor yes backcolor UI_BUTTON_BACK_COLOR }
+	}
+
+		itemDef 
+		{
+			name		search_button
+			text		"@MENU_SR_FP_SEARCH"
+			type		ITEM_TYPE_BUTTON
+			style		WINDOW_STYLE_FILLED
+			rect		165 325 60 26
+			textfont	UI_FONT_NORMAL
+			textscale	.3
+			textalign	0
+			textalignx	8
+			textaligny	20
+			forecolor	1 1 1 1
+			backcolor	UI_BUTTON_BACK_COLOR
+			border		1
+			bordercolor	0 0 0 1
+			visible 1
+			
+			action 
+			{ 
+				play "mouse_click" ; 
+
+				ui_script FindPlayer 
+		}
+
+		mouseEnter		{ setitemcolor yes backcolor UI_BUTTON_BACK_COLOR_HOVER;play "mouse_over"; }
+		mouseExit		{ setitemcolor yes backcolor UI_BUTTON_BACK_COLOR }
+	}
+
+
+		itemDef 
+		{
+			name		join_button
+			text		"@MENU_SR_FP_JOIN"
+			textfont	UI_FONT_NORMAL
+			textscale	.3
+			type		ITEM_TYPE_BUTTON
+			style		WINDOW_STYLE_FILLED
+			rect		310 325 60 26
+			textalign	0
+			textalignx	15
+			textaligny	20
+			forecolor	1 1 1 1
+			backcolor	UI_BUTTON_BACK_COLOR
+			border		1
+			bordercolor	0 0 0 1
+			visible 1
+			
+			action 
+			{ 
+				play "mouse_click" ; 
+
+				ui_script FoundPlayerJoinServer 
+		}
+		mouseEnter		{ setitemcolor yes backcolor UI_BUTTON_BACK_COLOR_HOVER;play "mouse_over"; }
+		mouseExit		{ setitemcolor yes backcolor UI_BUTTON_BACK_COLOR }
+	}
+}
+}
+
+
